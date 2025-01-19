@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+            user-select: none; /* Disable text highlighting */
+        }
+        canvas {
+            border: 2px solid #61dafb;
+            background-color: #20232a;
+            display: block;
+        }
+        #menu, #gameOverMenu {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #menu button, #gameOverMenu button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #61dafb;
+            border: none;
+            cursor: pointer;
+        }
+        #menu button:hover, #gameOverMenu button:hover {
+            background-color: #21a1f1;
+        }
+        #gameOverMenu {
+            display: none;
+        }
+        #expandButton {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: #61dafb;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #expandButton:hover {
+            background-color: #21a1f1;
+        }
+        #lightModeButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: #61dafb;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #lightModeButton:hover {
+            background-color: #21a1f1;
+        }
+        .shareButtons button {
+            margin: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            background-color: #61dafb;
+            border: none;
+            cursor: pointer;
+        }
+        .shareButtons button:hover {
+            background-color: #21a1f1;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <h1>Snake Game</h1>
+        <button onclick="startGame()">Start Game</button>
+    </div>
+
+    <div id="gameOverMenu">
+        <h1>Game Over</h1>
+        <p id="finalScore"></p>
+        <button onclick="startGame()">Restart</button>
+        <button onclick="showMainMenu()">Main Menu</button>
+        <div class="shareButtons">
+            <button onclick="shareOnTwitter()">Share on Twitter</button>
+            <button onclick="shareOnFacebook()">Share on Facebook</button>
+            <button onclick="shareOnReddit()">Share on Reddit</button>
+            <button onclick="copyToClipboard()">Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <canvas id="gameCanvas" style="display: none;"></canvas>
+    <button id="expandButton" onclick="expandGame()">Expand</button>
+    <button id="lightModeButton" onclick="toggleLightMode()">Light Mode</button>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const expandButton = document.getElementById("expandButton");
+        const lightModeButton = document.getElementById("lightModeButton");
+
+        canvas.width = 800;
+        canvas.height = 600;
+
+        const blockSize = 20;
+        let snake = [{ x: 200, y: 200 }];
+        let food = { x: 0, y: 0 };
+        let direction = null; // Initial direction is null
+        let score = 0;
+        let gameInterval;
+        let isExpanded = false;
+        let isLightMode = false;
+        let contactTimer;
+
+        function drawBlock(x, y, color) {
+            ctx.fillStyle = color;
+            ctx.fillRect(x, y, blockSize, blockSize);
+        }
+
+        function spawnFood() {
+            food.x = Math.floor(Math.random() * (canvas.width / blockSize)) * blockSize;
+            food.y = Math.floor(Math.random() * (canvas.height / blockSize)) * blockSize;
+            resetContactTimer();
+        }
+
+        function update() {
+            if (!direction) return; // Wait for the first input
+
+            const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
+
+            // Check collisions with walls
+            if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
+                gameOver();
+                return;
+            }
+
+            // Check collisions with itself
+            for (let block of snake) {
+                if (block.x === head.x && block.y === head.y) {
+                    gameOver();
+                    return;
+                }
+            }
+
+            snake.unshift(head);
+
+            // Check if the snake eats the food
+            if (head.x === food.x && head.y === food.y) {
+                score++;
+                spawnFood();
+            } else {
+                snake.pop();
+            }
+
+            drawGame();
+        }
+
+        function drawGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw snake
+            for (let block of snake) {
+                drawBlock(block.x, block.y, "#61dafb");
+            }
+
+            // Draw food
+            drawBlock(food.x, food.y, "#ff6b6b");
+
+            // Draw score
+            ctx.font = "18px Arial";
+            ctx.fillStyle = isLightMode ? "black" : "white";
+            ctx.fillText(`Score: ${score}`, 10, 20);
+        }
+
+        function gameOver() {
+            clearInterval(gameInterval);
+            clearTimeout(contactTimer);
+            document.getElementById("gameOverMenu").style.display = "block";
+            document.getElementById("finalScore").innerText = `Your Score: ${score}`;
+            canvas.style.display = "none";
+        }
+
+        function showMainMenu() {
+            document.getElementById("gameOverMenu").style.display = "none";
+            document.getElementById("menu").style.display = "block";
+        }
+
+        function changeDirection(event) {
+            const key = event.key;
+            if (key === "ArrowUp" && direction?.y !== blockSize) {
+                direction = { x: 0, y: -blockSize };
+            } else if (key === "ArrowDown" && direction?.y !== -blockSize) {
+                direction = { x: 0, y: blockSize };
+            } else if (key === "ArrowLeft" && direction?.x !== blockSize) {
+                direction = { x: -blockSize, y: 0 };
+            } else if (key === "ArrowRight" && direction?.x !== -blockSize) {
+                direction = { x: blockSize, y: 0 };
+            }
+        }
+
+        document.addEventListener("keydown", changeDirection);
+
+        function startGame() {
+            score = 0;
+            snake = [{ x: 200, y: 200 }];
+            direction = null; // Reset direction
+            spawnFood();
+            document.getElementById("menu").style.display = "none";
+            document.getElementById("gameOverMenu").style.display = "none";
+            canvas.style.display = "block";
+            drawGame(); // Show paused state
+            if (gameInterval) clearInterval(gameInterval);
+            gameInterval = setInterval(update, 100);
+        }
+
+        function expandGame() {
+            if (!isExpanded) {
+                canvas.width = window.innerWidth * 0.9;
+                canvas.height = window.innerHeight * 0.8;
+                expandButton.innerText = "Shrink";
+            } else {
+                canvas.width = 800;
+                canvas.height = 600;
+                expandButton.innerText = "Expand";
+            }
+            isExpanded = !isExpanded;
+            drawGame();
+        }
+
+        function toggleLightMode() {
+            if (!isLightMode) {
+                document.body.style.backgroundColor = "#e6e6e6";
+                document.body.style.color = "#000000";
+                canvas.style.backgroundColor = "#cccccc";
+                lightModeButton.innerText = "Dark Mode";
+            } else {
+                document.body.style.backgroundColor = "#282c34";
+                document.body.style.color = "#ffffff";
+                canvas.style.backgroundColor = "#20232a";
+                lightModeButton.innerText = "Light Mode";
+            }
+            isLightMode = !isLightMode;
+        }
+
+        function resetContactTimer() {
+            clearTimeout(contactTimer);
+            contactTimer = setTimeout(gameOver, 45000); // 45-second timer
+        }
+
+        function shareOnTwitter() {
+            const message = `I Just Got ${score} on website! Can you beat me?`;
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareOnFacebook() {
+            const message = `I Just Got ${score} on website! Can you beat me?`;
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent("YOUR_WEBSITE_URL")}`;
+            window.open(url, '_blank');
+        }
+
+        function shareOnReddit() {
+            const message = `I Just Got ${score} on website! Can you beat me?`;
+            const url = `https://www.reddit.com/submit?title=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function copyToClipboard() {
+            const textToCopy = `I Just Got ${score} on website! Can you beat me?`;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert("Score copied to clipboard!");
+            }).catch(err => {
+                alert("Failed to copy text: " + err);
+            });
+        }
+    </script>
+</body>
+</html>
