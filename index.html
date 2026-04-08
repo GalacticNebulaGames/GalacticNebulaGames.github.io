@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galactic Nebula Games — Upcoming Projects</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0c14;
+      color: #e8e4ff;
+      min-height: 100vh;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 2rem;
+      border-bottom: 0.5px solid #1e1a3a;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-text {
+      font-size: 17px;
+      font-weight: 500;
+      color: #e8e4ff;
+      letter-spacing: 0.02em;
+    }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      font-size: 13px;
+      color: #7a78a0;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #c4bfff; }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 4rem 1.5rem 2.5rem;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #534AB7;
+      margin-bottom: 0.75rem;
+    }
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 500;
+      color: #e8e4ff;
+      margin-bottom: 0.5rem;
+    }
+    .hero p {
+      font-size: 15px;
+      color: #7a78a0;
+    }
+
+    /* ── Filters ── */
+    .filters {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      padding: 0 1.5rem 2.5rem;
+      flex-wrap: wrap;
+    }
+    .pill {
+      font-size: 12px;
+      padding: 5px 16px;
+      border-radius: 20px;
+      border: 0.5px solid #2a2645;
+      color: #9490c0;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .pill:hover { border-color: #534AB7; color: #c4bfff; }
+    .pill.active {
+      background: #1e1a3a;
+      border-color: #534AB7;
+      color: #c4bfff;
+    }
+
+    /* ── Grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1rem;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #0e1020;
+      border: 0.5px solid #1e1a3a;
+      border-radius: 14px;
+      padding: 1.25rem;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: #534AB7; }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card h2 {
+      font-size: 15px;
+      font-weight: 500;
+      color: #e8e4ff;
+      margin-bottom: 5px;
+    }
+    .card p {
+      font-size: 13px;
+      color: #6e6c8a;
+      line-height: 1.55;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Badge ── */
+    .badge {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .badge-dev      { background: #1e1a3a; color: #7F77DD; }
+    .badge-alpha    { background: #0d1f18; color: #5DCAA5; }
+    .badge-soon     { background: #1f1608; color: #EF9F27; }
+    .badge-announced{ background: #0a1220; color: #85B7EB; }
+
+    /* ── Platforms ── */
+    .platforms { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
+    .platform {
+      font-size: 11px;
+      padding: 2px 9px;
+      border-radius: 5px;
+      background: #131525;
+      color: #6e6c8a;
+      border: 0.5px solid #1e1a3a;
+    }
+
+    /* ── Progress ── */
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    .progress-label, .progress-pct {
+      font-size: 11px;
+      color: #534AB7;
+    }
+    .bar {
+      height: 3px;
+      background: #1e1a3a;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+    .bar-fill { height: 100%; border-radius: 2px; }
+    .fill-purple { background: #534AB7; }
+    .fill-teal   { background: #1D9E75; }
+    .fill-amber  { background: #BA7517; }
+    .fill-blue   { background: #378ADD; }
+
+    .eta { font-size: 11px; color: #44415c; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 12px;
+      color: #2e2b45;
+      border-top: 0.5px solid #1e1a3a;
+    }
+
+    /* ── Hidden card (JS filter) ── */
+    .card[hidden] { display: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">
+    <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="15" stroke="#534AB7" stroke-width="0.8"/>
+      <circle cx="16" cy="16" r="6" fill="#534AB7" opacity="0.25"/>
+      <circle cx="16" cy="16" r="2.5" fill="#7F77DD"/>
+      <ellipse cx="16" cy="16" rx="13" ry="4" stroke="#534AB7" stroke-width="0.6" fill="none" transform="rotate(-20 16 16)"/>
+      <circle cx="26" cy="10" r="1.2" fill="#AFA9EC"/>
+      <circle cx="7"  cy="22" r="0.8" fill="#AFA9EC"/>
+    </svg>
+    <span class="logo-text">Galactic Nebula Games</span>
+  </a>
+  <div class="nav-links">
+    <a href="#">About</a>
+    <a href="#">Games</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">Upcoming projects</p>
+  <h1>Worlds in the making</h1>
+  <p>Follow our journey across PC, mobile, and beyond.</p>
+</section>
+
+<div class="filters">
+  <button class="pill active" data-filter="all">All</button>
+  <button class="pill" data-filter="PC">PC</button>
+  <button class="pill" data-filter="Mobile">Mobile</button>
+  <button class="pill" data-filter="Browser">Browser</button>
+  <button class="pill" data-filter="Console">Console</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     PROJECTS — edit these cards to match your games
+     ═══════════════════════════════════════════════════ -->
+<main class="grid" id="grid">
+
+  <!-- Card 1 -->
+  <article class="card" data-platforms="PC,Console">
+    <div class="card-top">
+      <div class="card-icon" style="background:#1a1630;">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <polygon points="11,2 20,19 2,19" stroke="#7F77DD" stroke-width="1.2" fill="none"/>
+          <circle cx="11" cy="13" r="2" fill="#534AB7"/>
+        </svg>
+      </div>
+      <span class="badge badge-dev">In dev</span>
+    </div>
+    <h2>Void Ascent</h2>
+    <p>A rogue-lite dungeon crawler set in a collapsing star system.</p>
+    <div class="platforms">
+      <span class="platform">PC</span>
+      <span class="platform">Console</span>
+    </div>
+    <div class="progress-row">
+      <span class="progress-label">Progress</span>
+      <span class="progress-pct">65%</span>
+    </div>
+    <div class="bar"><div class="bar-fill fill-purple" style="width:65%"></div></div>
+    <p class="eta">Est. release — Q3 2025</p>
+  </article>
+
+  <!-- Card 2 -->
+  <article class="card" data-platforms="Mobile,Browser">
+    <div class="card-top">
+      <div class="card-icon" style="background:#0d1f18;">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <rect x="3"  y="3"  width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"/>
+          <rect x="12" y="3"  width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"/>
+          <rect x="3"  y="12" width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"/>
+          <rect x="12" y="12" width="7" height="7" rx="1.5" stroke="#5DCAA5" stroke-width="1.2" fill="none"/>
+        </svg>
+      </div>
+      <span class="badge badge-alpha">Alpha</span>
+    </div>
+    <h2>Nebula Tiles</h2>
+    <p>A cozy puzzle game built around merging cosmic matter.</p>
+    <div class="platforms">
+      <span class="platform">Mobile</span>
+      <span class="platform">Browser</span>
+    </div>
+    <div class="progress-row">
+      <span class="progress-label">Progress</span>
+      <span class="progress-pct">82%</span>
+    </div>
+    <div class="bar"><div class="bar-fill fill-teal" style="width:82%"></div></div>
+    <p class="eta">Est. release — Q2 2025</p>
+  </article>
+
+  <!-- Card 3 -->
+  <article class="card" data-platforms="PC">
+    <div class="card-top">
+      <div class="card-icon" style="background:#1a140a;">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <circle cx="11" cy="11" r="8" stroke="#EF9F27" stroke-width="1.2" fill="none"/>
+          <path d="M11 3 L11 11 L17 11" stroke="#BA7517" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="badge badge-soon">Coming soon</span>
+    </div>
+    <h2>Starfall Protocol</h2>
+    <p>A real-time strategy game with asymmetric alien factions.</p>
+    <div class="platforms">
+      <span class="platform">PC</span>
+    </div>
+    <div class="progress-row">
+      <span class="progress-label">Progress</span>
+      <span class="progress-pct">30%</span>
+    </div>
+    <div class="bar"><div class="bar-fill fill-amber" style="width:30%"></div></div>
+    <p class="eta">Est. release — Q1 2026</p>
+  </article>
+
+  <!-- Card 4 -->
+  <article class="card" data-platforms="Mobile,PC">
+    <div class="card-top">
+      <div class="card-icon" style="background:#0a1220;">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <circle cx="11" cy="11" r="3" fill="#378ADD" opacity="0.4"/>
+          <circle cx="11" cy="11" r="7" stroke="#378ADD" stroke-width="0.8" stroke-dasharray="2 2" fill="none"/>
+          <circle cx="11" cy="4"  r="1.5" fill="#85B7EB"/>
+        </svg>
+      </div>
+      <span class="badge badge-announced">Announced</span>
+    </div>
+    <h2>Dark Orbit: Reborn</h2>
+    <p>Reimagining a beloved space MMO for modern mobile hardware.</p>
+    <div class="platforms">
+      <span class="platform">Mobile</span>
+      <span class="platform">PC</span>
+    </div>
+    <div class="progress-row">
+      <span class="progress-label">Progress</span>
+      <span class="progress-pct">12%</span>
+    </div>
+    <div class="bar"><div class="bar-fill fill-blue" style="width:12%"></div></div>
+    <p class="eta">Est. release — TBD</p>
+  </article>
+
+  <!-- ✦ Add more cards above this line ✦ -->
+
+</main>
+
+<footer>
+  &copy; 2025 Galactic Nebula Games · galacticnebulagames.com
+</footer>
+
+<script>
+  const pills  = document.querySelectorAll('.pill');
+  const cards  = document.querySelectorAll('.card');
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+
+      const filter = pill.dataset.filter;
+      cards.forEach(card => {
+        const platforms = card.dataset.platforms || '';
+        if (filter === 'all' || platforms.includes(filter)) {
+          card.removeAttribute('hidden');
+        } else {
+          card.setAttribute('hidden', '');
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
