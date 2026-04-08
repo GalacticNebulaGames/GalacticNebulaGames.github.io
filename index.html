@@ -42,6 +42,11 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: #c4bfff; }
+    .nav-links a.active { color: #c4bfff; }
+
+    /* ── Pages ── */
+    .page { display: none; }
+    .page.active { display: block; }
 
     /* ── Hero ── */
     .hero {
@@ -145,10 +150,10 @@
       border-radius: 20px;
       font-weight: 500;
     }
-    .badge-dev      { background: #1e1a3a; color: #7F77DD; }
-    .badge-alpha    { background: #0d1f18; color: #5DCAA5; }
-    .badge-soon     { background: #1f1608; color: #EF9F27; }
-    .badge-announced{ background: #0a1220; color: #85B7EB; }
+    .badge-dev       { background: #1e1a3a; color: #7F77DD; }
+    .badge-alpha     { background: #0d1f18; color: #5DCAA5; }
+    .badge-soon      { background: #1f1608; color: #EF9F27; }
+    .badge-announced { background: #0a1220; color: #85B7EB; }
 
     /* ── Platforms ── */
     .platforms { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
@@ -167,10 +172,7 @@
       justify-content: space-between;
       margin-bottom: 5px;
     }
-    .progress-label, .progress-pct {
-      font-size: 11px;
-      color: #534AB7;
-    }
+    .progress-label, .progress-pct { font-size: 11px; color: #534AB7; }
     .bar {
       height: 3px;
       background: #1e1a3a;
@@ -186,6 +188,103 @@
 
     .eta { font-size: 11px; color: #44415c; }
 
+    /* ── About page ── */
+    .about-hero {
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+    }
+    .about-hero-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #534AB7;
+      margin-bottom: 0.75rem;
+    }
+    .about-hero h1 {
+      font-size: 32px;
+      font-weight: 500;
+      color: #e8e4ff;
+      margin-bottom: 0.75rem;
+    }
+    .about-hero p {
+      font-size: 15px;
+      color: #7a78a0;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .about-section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #534AB7;
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      padding: 0 1.5rem;
+    }
+
+    .social-card {
+      background: #0e1020;
+      border: 0.5px solid #1e1a3a;
+      border-radius: 14px;
+      padding: 1.25rem;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    .social-card:hover {
+      border-color: var(--accent);
+      background: #11132a;
+    }
+    .social-card-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .social-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .social-card-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #e8e4ff;
+    }
+    .social-card-handle {
+      font-size: 12px;
+      color: #6e6c8a;
+    }
+    .social-card-desc {
+      font-size: 12px;
+      color: #55536e;
+      line-height: 1.5;
+    }
+    .social-card-arrow {
+      font-size: 12px;
+      color: #534AB7;
+      align-self: flex-end;
+      margin-top: auto;
+    }
+
     /* ── Footer ── */
     footer {
       text-align: center;
@@ -195,14 +294,13 @@
       border-top: 0.5px solid #1e1a3a;
     }
 
-    /* ── Hidden card (JS filter) ── */
     .card[hidden] { display: none; }
   </style>
 </head>
 <body>
 
 <nav>
-  <a class="logo" href="#">
+  <a class="logo" href="#" onclick="showPage('projects')">
     <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
       <circle cx="16" cy="16" r="15" stroke="#534AB7" stroke-width="0.8"/>
       <circle cx="16" cy="16" r="6" fill="#534AB7" opacity="0.25"/>
@@ -214,148 +312,241 @@
     <span class="logo-text">Galactic Nebula Games</span>
   </a>
   <div class="nav-links">
-    <a href="#">About</a>
-    <a href="#">Games</a>
-    <a href="#">Contact</a>
+    <a href="#" id="nav-about" onclick="showPage('about')">About</a>
+    <a href="#" id="nav-projects" class="active" onclick="showPage('projects')">Games</a>
   </div>
 </nav>
 
-<section class="hero">
-  <p class="hero-eyebrow">Upcoming projects</p>
-  <h1>Worlds in the making</h1>
-  <p>Welcome! We're Galactic Nebula Games, and this is what we're working on.</p>
-</section>
+<!-- ══════════════ PROJECTS PAGE ══════════════ -->
+<div class="page active" id="page-projects">
 
-<div class="filters">
-  <button class="pill active" data-filter="all">All</button>
-  <button class="pill" data-filter="PC">PC</button>
-  <button class="pill" data-filter="Mobile">Mobile</button>
-  <button class="pill" data-filter="Browser">Browser</button>
-  <button class="pill" data-filter="Console">Roblox</button>
+  <section class="hero">
+    <p class="hero-eyebrow">Upcoming projects</p>
+    <h1>Worlds in the making</h1>
+    <p>Welcome! We're Galactic Nebula Games, and this is what we're working on.</p>
+  </section>
+
+  <div class="filters">
+    <button class="pill active" data-filter="all">All</button>
+    <button class="pill" data-filter="PC">PC</button>
+    <button class="pill" data-filter="Mobile">Mobile</button>
+    <button class="pill" data-filter="Browser">Browser</button>
+    <button class="pill" data-filter="Roblox">Roblox</button>
+  </div>
+
+  <main class="grid" id="grid">
+
+    <article class="card" data-platforms="PC,Roblox">
+      <div class="card-top">
+        <div class="card-icon" style="background:#1a1630;">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <polygon points="11,2 20,19 2,19" stroke="#7F77DD" stroke-width="1.2" fill="none"/>
+            <circle cx="11" cy="13" r="2" fill="#534AB7"/>
+          </svg>
+        </div>
+        <span class="badge badge-dev">In dev</span>
+      </div>
+      <h2>Slaughter Shift</h2>
+      <p>A Dead By Daylight / Violence District inspired game.</p>
+      <div class="platforms">
+        <span class="platform">PC</span>
+        <span class="platform">Roblox</span>
+      </div>
+      <div class="progress-row">
+        <span class="progress-label">Progress</span>
+        <span class="progress-pct">25%</span>
+      </div>
+      <div class="bar"><div class="bar-fill fill-purple" style="width:25%"></div></div>
+      <p class="eta">Est. release — mid 2026</p>
+    </article>
+
+    <article class="card" data-platforms="PC,Browser">
+      <div class="card-top">
+        <div class="card-icon" style="background:#0d1f18;">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <rect x="3"  y="3"  width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"/>
+            <rect x="12" y="3"  width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"/>
+            <rect x="3"  y="12" width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"/>
+            <rect x="12" y="12" width="7" height="7" rx="1.5" stroke="#5DCAA5" stroke-width="1.2" fill="none"/>
+          </svg>
+        </div>
+        <span class="badge badge-alpha">Alpha</span>
+      </div>
+      <h2>wMessage</h2>
+      <p>An all-new messaging app built around accessibility.</p>
+      <div class="platforms">
+        <span class="platform">PC</span>
+        <span class="platform">Browser</span>
+      </div>
+      <div class="progress-row">
+        <span class="progress-label">Progress</span>
+        <span class="progress-pct">82%</span>
+      </div>
+      <div class="bar"><div class="bar-fill fill-teal" style="width:82%"></div></div>
+      <p class="eta">Est. release — late 2026</p>
+    </article>
+
+    <article class="card" data-platforms="PC">
+      <div class="card-top">
+        <div class="card-icon" style="background:#1a140a;">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <circle cx="11" cy="11" r="8" stroke="#EF9F27" stroke-width="1.2" fill="none"/>
+            <path d="M11 3 L11 11 L17 11" stroke="#BA7517" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="badge badge-soon">Coming soon</span>
+      </div>
+      <h2>Fredbears: The Untold Story</h2>
+      <p>A FNaF fan-game taking place at Fredbear's Family Diner.</p>
+      <div class="platforms">
+        <span class="platform">PC</span>
+      </div>
+      <div class="progress-row">
+        <span class="progress-label">Progress</span>
+        <span class="progress-pct">10%</span>
+      </div>
+      <div class="bar"><div class="bar-fill fill-amber" style="width:10%"></div></div>
+      <p class="eta">Est. release — late 2026 or early 2027</p>
+    </article>
+
+    <article class="card" data-platforms="Mobile,PC">
+      <div class="card-top">
+        <div class="card-icon" style="background:#0a1220;">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <circle cx="11" cy="11" r="3" fill="#378ADD" opacity="0.4"/>
+            <circle cx="11" cy="11" r="7" stroke="#378ADD" stroke-width="0.8" stroke-dasharray="2 2" fill="none"/>
+            <circle cx="11" cy="4"  r="1.5" fill="#85B7EB"/>
+          </svg>
+        </div>
+        <span class="badge badge-announced">Announced</span>
+      </div>
+      <h2>Untitled Horror Game</h2>
+      <p>Upcoming horror game — more details coming soon.</p>
+      <div class="platforms">
+        <span class="platform">Mobile</span>
+        <span class="platform">PC</span>
+      </div>
+      <div class="progress-row">
+        <span class="progress-label">Progress</span>
+        <span class="progress-pct">8%</span>
+      </div>
+      <div class="bar"><div class="bar-fill fill-blue" style="width:8%"></div></div>
+      <p class="eta">Est. release — TBD</p>
+    </article>
+
+  </main>
+
 </div>
 
+<!-- ══════════════ ABOUT PAGE ══════════════ -->
+<div class="page" id="page-about">
 
-<main class="grid" id="grid">
+  <div class="about-hero">
+    <p class="about-hero-eyebrow">About us</p>
+    <h1>Galactic Nebula Games</h1>
+    <p>An indie studio making games and apps across PC, mobile, browser, and Roblox. Come hang out with us online.</p>
+  </div>
 
-  <!-- Card 1 -->
-  <article class="card" data-platforms="PC,Roblox">
-    <div class="card-top">
-      <div class="card-icon" style="background:#1a1630;">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-          <polygon points="11,2 20,19 2,19" stroke="#7F77DD" stroke-width="1.2" fill="none"/>
-          <circle cx="11" cy="13" r="2" fill="#534AB7"/>
-        </svg>
+  <p class="about-section-label">Find us online</p>
+
+  <div class="social-grid">
+
+    <!-- Studio YouTube -->
+    <a class="social-card" href="https://www.youtube.com/@GalacticNebulaGames" target="_blank" rel="noopener" style="--accent:#E24B4A;">
+      <div class="social-card-top">
+        <div class="social-icon" style="background:#1a0e0e;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="5" width="20" height="14" rx="4" stroke="#E24B4A" stroke-width="1.2" fill="none"/>
+            <polygon points="10,9 16,12 10,15" fill="#E24B4A"/>
+          </svg>
+        </div>
+        <div>
+          <div class="social-card-name">GalacticNebulaGames</div>
+          <div class="social-card-handle">YouTube</div>
+        </div>
       </div>
-      <span class="badge badge-dev">In dev</span>
-    </div>
-    <h2>Slaughter Shift</h2>
-    <p>A Dead By Daylight / violence district inspired game.</p>
-    <div class="platforms">
-      <span class="platform">PC</span>
-      <span class="platform">Roblox</span>
-    </div>
-    <div class="progress-row">
-      <span class="progress-label">Progress</span>
-      <span class="progress-pct">25%</span>
-    </div>
-    <div class="bar"><div class="bar-fill fill-purple" style="width:65%"></div></div>
-    <p class="eta">Est. release — mid 2026</p>
-  </article>
+      <div class="social-card-desc">The official studio channel — devlogs, trailers, and updates.</div>
+      <div class="social-card-arrow">Visit →</div>
+    </a>
 
-  <!-- Card 2 -->
-  <article class="card" data-platforms="PC,Browser">
-    <div class="card-top">
-      <div class="card-icon" style="background:#0d1f18;">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-          <rect x="3"  y="3"  width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"/>
-          <rect x="12" y="3"  width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"/>
-          <rect x="3"  y="12" width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"/>
-          <rect x="12" y="12" width="7" height="7" rx="1.5" stroke="#5DCAA5" stroke-width="1.2" fill="none"/>
-        </svg>
+    <!-- Owner YouTube -->
+    <a class="social-card" href="https://www.youtube.com/@WyattDaMemer" target="_blank" rel="noopener" style="--accent:#E24B4A;">
+      <div class="social-card-top">
+        <div class="social-icon" style="background:#1a0e0e;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="5" width="20" height="14" rx="4" stroke="#E24B4A" stroke-width="1.2" fill="none"/>
+            <polygon points="10,9 16,12 10,15" fill="#E24B4A"/>
+          </svg>
+        </div>
+        <div>
+          <div class="social-card-name">WyattDaMemer</div>
+          <div class="social-card-handle">YouTube · Owner</div>
+        </div>
       </div>
-      <span class="badge badge-alpha">Alpha</span>
-    </div>
-    <h2>wMessage</h2>
-    <p>An all new messaging app built around accessiblity.</p>
-    <div class="platforms">
-      <span class="platform">PC</span>
-      <span class="platform">Browser</span>
-    </div>
-    <div class="progress-row">
-      <span class="progress-label">Progress</span>
-      <span class="progress-pct">82%</span>
-    </div>
-    <div class="bar"><div class="bar-fill fill-teal" style="width:82%"></div></div>
-    <p class="eta">Est. release — late 2026</p>
-  </article>
+      <div class="social-card-desc">Personal channel of the studio's founder.</div>
+      <div class="social-card-arrow">Visit →</div>
+    </a>
 
-  <!-- Card 3 -->
-  <article class="card" data-platforms="PC">
-    <div class="card-top">
-      <div class="card-icon" style="background:#1a140a;">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-          <circle cx="11" cy="11" r="8" stroke="#EF9F27" stroke-width="1.2" fill="none"/>
-          <path d="M11 3 L11 11 L17 11" stroke="#BA7517" stroke-width="1.2" stroke-linecap="round"/>
-        </svg>
+    <!-- Discord -->
+    <a class="social-card" href="https://www.discord.com/invite/fhf7gpxrGt" target="_blank" rel="noopener" style="--accent:#7F77DD;">
+      <div class="social-card-top">
+        <div class="social-icon" style="background:#12101e;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M9 12a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" fill="#7F77DD"/>
+            <path d="M16.5 4.5A14.5 14.5 0 0 0 12 4a14.5 14.5 0 0 0-4.5.5S5 5.5 4 9.5c0 0-1 4 0 7 0 0 2.5 2 4.5 2l1-1.5a8.5 8.5 0 0 1-2-1.5s.3.2.8.5c.7.3 1.4.5 2.2.7.9.2 1.7.2 2.5.2s1.6 0 2.5-.2c.8-.2 1.5-.4 2.2-.7.5-.3.8-.5.8-.5a8.5 8.5 0 0 1-2 1.5l1 1.5c2 0 4.5-2 4.5-2 1-3 0-7 0-7-1-4-3.5-5-3.5-5Z" stroke="#7F77DD" stroke-width="1" fill="none"/>
+          </svg>
+        </div>
+        <div>
+          <div class="social-card-name">Discord server</div>
+          <div class="social-card-handle">Community</div>
+        </div>
       </div>
-      <span class="badge badge-soon">Coming soon</span>
-    </div>
-    <h2>Fredbears: The Untold Story</h2>
-    <p>A FNaF Fan-game taking place at Fredbears Family Diner.</p>
-    <div class="platforms">
-      <span class="platform">PC</span>
-    </div>
-    <div class="progress-row">
-      <span class="progress-label">Progress</span>
-      <span class="progress-pct">10%</span>
-    </div>
-    <div class="bar"><div class="bar-fill fill-amber" style="width:30%"></div></div>
-    <p class="eta">Est. release — late 2026 or early 2027</p>
-  </article>
+      <div class="social-card-desc">Join the community — chat, updates, and early announcements.</div>
+      <div class="social-card-arrow">Join →</div>
+    </a>
 
-  <!-- Card 4 -->
-  <article class="card" data-platforms="Mobile,PC">
-    <div class="card-top">
-      <div class="card-icon" style="background:#0a1220;">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-          <circle cx="11" cy="11" r="3" fill="#378ADD" opacity="0.4"/>
-          <circle cx="11" cy="11" r="7" stroke="#378ADD" stroke-width="0.8" stroke-dasharray="2 2" fill="none"/>
-          <circle cx="11" cy="4"  r="1.5" fill="#85B7EB"/>
-        </svg>
+    <!-- Roblox -->
+    <a class="social-card" href="https://www.roblox.com/share/g/153596513" target="_blank" rel="noopener" style="--accent:#5DCAA5;">
+      <div class="social-card-top">
+        <div class="social-icon" style="background:#0d1f18;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <rect x="5" y="5" width="14" height="14" rx="2" stroke="#5DCAA5" stroke-width="1.2" fill="none" transform="rotate(15 12 12)"/>
+            <rect x="9" y="9" width="6" height="6" rx="1" fill="#5DCAA5" opacity="0.5" transform="rotate(15 12 12)"/>
+          </svg>
+        </div>
+        <div>
+          <div class="social-card-name">Roblox group</div>
+          <div class="social-card-handle">Roblox</div>
+        </div>
       </div>
-      <span class="badge badge-announced">Announced</span>
-    </div>
-    <h2></h2>
-    <p>Upcoming horror game.</p>
-    <div class="platforms">
-      <span class="platform">Mobile</span>
-      <span class="platform">PC</span>
-    </div>
-    <div class="progress-row">
-      <span class="progress-label">Progress</span>
-      <span class="progress-pct">8%</span>
-    </div>
-    <div class="bar"><div class="bar-fill fill-blue" style="width:12%"></div></div>
-    <p class="eta">Est. release — TBD</p>
-  </article>
+      <div class="social-card-desc">Follow the group to stay updated on Roblox releases.</div>
+      <div class="social-card-arrow">Follow →</div>
+    </a>
 
-  <!-- ✦ Add more cards above this line ✦ -->
+  </div>
 
-</main>
+</div>
 
 <footer>
   &copy; 2026 Galactic Nebula Games · galacticnebulagames.com
 </footer>
 
 <script>
-  const pills  = document.querySelectorAll('.pill');
-  const cards  = document.querySelectorAll('.card');
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    document.getElementById('nav-' + name).classList.add('active');
+    return false;
+  }
+
+  const pills = document.querySelectorAll('.pill');
+  const cards = document.querySelectorAll('.card');
 
   pills.forEach(pill => {
     pill.addEventListener('click', () => {
       pills.forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
-
       const filter = pill.dataset.filter;
       cards.forEach(card => {
         const platforms = card.dataset.platforms || '';
