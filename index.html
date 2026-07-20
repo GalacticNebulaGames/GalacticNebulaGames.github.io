@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Galactic Nebula Games — Upcoming Projects</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -522,8 +521,7 @@
 <!-- Site data lives here as JSON. Editing the page through the lock icon updates this
      in memory; "Download updated site" writes a new copy of this file with your
      changes baked in, so you never have to touch the code by hand. -->
-<script id="site-data" type="application/json">
-{
+<script id="site-data" type="application/json">{
   "passwordHash": "455e0d5db0a653286f4b5a66371c18038cbb3b49cab29eb65a428783539ea3ea",
   "games": [
     {
@@ -534,7 +532,10 @@
       "icon": "triangle",
       "badgeType": "dev",
       "badgeText": "In dev",
-      "platforms": ["PC", "Roblox"],
+      "platforms": [
+        "PC",
+        "Roblox"
+      ],
       "progress": 25,
       "eta": "mid 2026",
       "links": []
@@ -543,11 +544,14 @@
       "id": "wmessage",
       "title": "wMessage",
       "tagline": "An all-new messaging app built around accessibility.",
-      "description": "wMessage is a messaging app built from the ground up with accessibility as the starting point rather than an afterthought \u2014 screen reader support, adjustable text and contrast, and a simple, predictable layout.\n\nIt's currently in alpha and getting close to a first public release on PC and in-browser.",
+      "description": "wMessage is a messaging app built from the ground up with accessibility as the starting point rather than an afterthought — screen reader support, adjustable text and contrast, and a simple, predictable layout.\n\nIt's currently in alpha and getting close to a first public release on PC and in-browser.",
       "icon": "grid",
       "badgeType": "alpha",
       "badgeText": "Alpha",
-      "platforms": ["PC", "Browser"],
+      "platforms": [
+        "PC",
+        "Browser"
+      ],
       "progress": 82,
       "eta": "late 2026",
       "links": []
@@ -556,11 +560,13 @@
       "id": "fredbears",
       "title": "Fredbears: The Untold Story",
       "tagline": "A FNaF fan-game taking place at Fredbear's Family Diner.",
-      "description": "A Five Nights at Freddy's fan-game set at Fredbear's Family Diner, told from a new angle on a familiar night. Expect a mix of classic night-shift tension with some new mechanics we haven't seen elsewhere in the fan-game space.\n\nStill early \u2014 more will be shared as the story and mechanics come together.",
+      "description": "A Five Nights at Freddy's fan-game set at Fredbear's Family Diner, told from a new angle on a familiar night. Expect a mix of classic night-shift tension with some new mechanics we haven't seen elsewhere in the fan-game space.\n\nStill early — more will be shared as the story and mechanics come together.",
       "icon": "clock",
       "badgeType": "soon",
       "badgeText": "Coming soon",
-      "platforms": ["PC"],
+      "platforms": [
+        "PC"
+      ],
       "progress": 10,
       "eta": "late 2026 or early 2027",
       "links": []
@@ -568,12 +574,15 @@
     {
       "id": "untitled-horror",
       "title": "Untitled Horror Game",
-      "tagline": "Upcoming horror game \u2014 more details coming soon.",
-      "description": "An upcoming horror game for mobile and PC. We're keeping details under wraps for now while the concept comes together \u2014 check back for updates.",
+      "tagline": "Upcoming horror game — more details coming soon.",
+      "description": "An upcoming horror game for mobile and PC. We're keeping details under wraps for now while the concept comes together — check back for updates.",
       "icon": "orbit",
       "badgeType": "announced",
       "badgeText": "Announced",
-      "platforms": ["Mobile", "PC"],
+      "platforms": [
+        "Mobile",
+        "PC"
+      ],
       "progress": 8,
       "eta": "TBD",
       "links": []
@@ -585,14 +594,14 @@
       {
         "name": "GalacticNebulaGames",
         "handle": "YouTube",
-        "desc": "The official studio channel \u2014 devlogs, trailers, and updates.",
+        "desc": "The official studio channel — devlogs, trailers, and updates.",
         "url": "https://www.youtube.com/@GalacticNebulaGames",
         "icon": "youtube",
         "cta": "Visit"
       },
       {
         "name": "WyattDM",
-        "handle": "YouTube \u00b7 Owner",
+        "handle": "YouTube · Owner",
         "desc": "Personal channel of the studio's founder.",
         "url": "https://www.youtube.com/@WyattDaMemer",
         "icon": "youtube",
@@ -601,7 +610,7 @@
       {
         "name": "Discord server",
         "handle": "Community",
-        "desc": "Join the community \u2014 chat, updates, and early announcements.",
+        "desc": "Join the community — chat, updates, and early announcements.",
         "url": "https://www.discord.com/invite/fhf7gpxrGt",
         "icon": "discord",
         "cta": "Join"
@@ -616,16 +625,15 @@
       }
     ]
   }
-}
-</script>
+}</script>
 
 <div class="modal-backdrop" id="modal-backdrop">
   <div class="modal">
     <h3 id="modal-title">Enter password</h3>
     <p class="modal-sub" id="modal-sub">Unlock editing for this site.</p>
     <p class="modal-error" id="modal-error">Incorrect password.</p>
-    <input type="password" class="edit-field" id="modal-input" placeholder="Password" />
-    <input type="password" class="edit-field" id="modal-input-2" placeholder="Confirm password" style="display:none" />
+    <input type="password" class="edit-field" id="modal-input" placeholder="Password">
+    <input type="password" class="edit-field" id="modal-input-2" placeholder="Confirm password" style="display:none">
     <div class="edit-btn-row">
       <button class="btn btn-primary" id="modal-confirm">Unlock</button>
       <button class="btn" onclick="closeModal()">Cancel</button>
@@ -634,10 +642,10 @@
 </div>
 
 <div class="admin-bar" id="admin-bar">
-  <span class="admin-bar-msg" id="admin-bar-msg">Editing unlocked.</span>
+  <span class="admin-bar-msg" id="admin-bar-msg">Editing unlocked. Click any field to edit it.</span>
   <div class="edit-btn-row">
     <button class="btn btn-sm" onclick="openChangePassword()">Change password</button>
-    <button class="btn btn-sm btn-primary" id="download-btn" onclick="downloadSite()" style="display:none">⬇ Download updated site</button>
+    <button class="btn btn-sm btn-primary" id="download-btn" onclick="downloadSite()" style="display: inline-block;">⬇ Download updated site</button>
     <button class="btn btn-sm" onclick="lockEditing()">Lock</button>
   </div>
 </div>
@@ -645,31 +653,31 @@
 <nav>
   <a class="logo" href="#" onclick="return showPage('projects')">
     <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
-      <circle cx="16" cy="16" r="15" stroke="#534AB7" stroke-width="0.8"/>
-      <circle cx="16" cy="16" r="6" fill="#534AB7" opacity="0.25"/>
-      <circle cx="16" cy="16" r="2.5" fill="#7F77DD"/>
-      <ellipse cx="16" cy="16" rx="13" ry="4" stroke="#534AB7" stroke-width="0.6" fill="none" transform="rotate(-20 16 16)"/>
-      <circle cx="26" cy="10" r="1.2" fill="#AFA9EC"/>
-      <circle cx="7"  cy="22" r="0.8" fill="#AFA9EC"/>
+      <circle cx="16" cy="16" r="15" stroke="#534AB7" stroke-width="0.8"></circle>
+      <circle cx="16" cy="16" r="6" fill="#534AB7" opacity="0.25"></circle>
+      <circle cx="16" cy="16" r="2.5" fill="#7F77DD"></circle>
+      <ellipse cx="16" cy="16" rx="13" ry="4" stroke="#534AB7" stroke-width="0.6" fill="none" transform="rotate(-20 16 16)"></ellipse>
+      <circle cx="26" cy="10" r="1.2" fill="#AFA9EC"></circle>
+      <circle cx="7" cy="22" r="0.8" fill="#AFA9EC"></circle>
     </svg>
     <span class="logo-text">Galactic Nebula Games</span>
   </a>
   <div class="nav-right">
     <div class="nav-links">
       <a id="nav-about" onclick="return showPage('about')">About</a>
-      <a id="nav-projects" class="active" onclick="return showPage('projects')">Games</a>
+      <a id="nav-projects" class="" onclick="return showPage('projects')">Games</a>
     </div>
-    <button class="lock-btn" id="lock-btn" onclick="onLockClick()" title="Edit this site">
+    <button class="lock-btn unlocked" id="lock-btn" onclick="onLockClick()" title="Edit this site">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" id="lock-icon">
-        <rect x="5" y="11" width="14" height="9" rx="2" stroke="#7a78a0" stroke-width="1.5"/>
-        <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#7a78a0" stroke-width="1.5" fill="none"/>
+        <rect x="5" y="11" width="14" height="9" rx="2" stroke="#7a78a0" stroke-width="1.5"></rect>
+        <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#7a78a0" stroke-width="1.5" fill="none"></path>
       </svg>
     </button>
   </div>
 </nav>
 
 <!-- ══════════════ PROJECTS PAGE ══════════════ -->
-<div class="page active" id="page-projects">
+<div class="page" id="page-projects">
 
   <section class="hero">
     <p class="hero-eyebrow">Upcoming projects</p>
@@ -685,17 +693,138 @@
     <button class="pill" data-filter="Roblox">Roblox</button>
   </div>
 
-  <main class="grid" id="grid"></main>
+  <main class="grid" id="grid"><article class="card" data-platforms="PC,Roblox">
+      <div class="card-edit-controls">
+        <button class="icon-btn" title="Move up" onclick="event.stopPropagation(); moveGame(0, -1)">↑</button>
+        <button class="icon-btn" title="Move down" onclick="event.stopPropagation(); moveGame(0, 1)">↓</button>
+        <button class="icon-btn" title="Delete" onclick="event.stopPropagation(); deleteGame('speed-islands')">✕</button>
+      </div>
+      <div class="card-top">
+        <div class="card-icon" style="background:#1a1630;"><svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <polygon points="11,2 20,19 2,19" stroke="#7F77DD" stroke-width="1.2" fill="none"></polygon>
+      <circle cx="11" cy="13" r="2" fill="#534AB7"></circle></svg></div>
+        <span class="badge badge-dev">In dev</span>
+      </div>
+      <h2>Speed Islands</h2>
+      <p class="card-tagline">A game that takes a new approach on the "Incremental Simulator" genre.</p>
+      <div class="platforms"><span class="platform">PC</span><span class="platform">Roblox</span></div>
+      <div class="progress-row"><span class="progress-label">Progress</span><span class="progress-pct">25%</span></div>
+      <div class="bar"><div class="bar-fill fill-purple" style="width:25%"></div></div>
+      <p class="eta">Est. release — mid 2026</p>
+    </article><article class="card" data-platforms="PC,Browser">
+      <div class="card-edit-controls">
+        <button class="icon-btn" title="Move up" onclick="event.stopPropagation(); moveGame(1, -1)">↑</button>
+        <button class="icon-btn" title="Move down" onclick="event.stopPropagation(); moveGame(1, 1)">↓</button>
+        <button class="icon-btn" title="Delete" onclick="event.stopPropagation(); deleteGame('wmessage')">✕</button>
+      </div>
+      <div class="card-top">
+        <div class="card-icon" style="background:#0d1f18;"><svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"></rect>
+      <rect x="12" y="3" width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"></rect>
+      <rect x="3" y="12" width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"></rect>
+      <rect x="12" y="12" width="7" height="7" rx="1.5" stroke="#5DCAA5" stroke-width="1.2" fill="none"></rect></svg></div>
+        <span class="badge badge-alpha">Alpha</span>
+      </div>
+      <h2>wMessage</h2>
+      <p class="card-tagline">An all-new messaging app built around accessibility.</p>
+      <div class="platforms"><span class="platform">PC</span><span class="platform">Browser</span></div>
+      <div class="progress-row"><span class="progress-label">Progress</span><span class="progress-pct">82%</span></div>
+      <div class="bar"><div class="bar-fill fill-teal" style="width:82%"></div></div>
+      <p class="eta">Est. release — late 2026</p>
+    </article><article class="card" data-platforms="PC">
+      <div class="card-edit-controls">
+        <button class="icon-btn" title="Move up" onclick="event.stopPropagation(); moveGame(2, -1)">↑</button>
+        <button class="icon-btn" title="Move down" onclick="event.stopPropagation(); moveGame(2, 1)">↓</button>
+        <button class="icon-btn" title="Delete" onclick="event.stopPropagation(); deleteGame('fredbears')">✕</button>
+      </div>
+      <div class="card-top">
+        <div class="card-icon" style="background:#1a140a;"><svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <circle cx="11" cy="11" r="8" stroke="#EF9F27" stroke-width="1.2" fill="none"></circle>
+      <path d="M11 3 L11 11 L17 11" stroke="#BA7517" stroke-width="1.2" stroke-linecap="round"></path></svg></div>
+        <span class="badge badge-soon">Coming soon</span>
+      </div>
+      <h2>Fredbears: The Untold Story</h2>
+      <p class="card-tagline">A FNaF fan-game taking place at Fredbear's Family Diner.</p>
+      <div class="platforms"><span class="platform">PC</span></div>
+      <div class="progress-row"><span class="progress-label">Progress</span><span class="progress-pct">10%</span></div>
+      <div class="bar"><div class="bar-fill fill-amber" style="width:10%"></div></div>
+      <p class="eta">Est. release — late 2026 or early 2027</p>
+    </article><article class="card" data-platforms="Mobile,PC">
+      <div class="card-edit-controls">
+        <button class="icon-btn" title="Move up" onclick="event.stopPropagation(); moveGame(3, -1)">↑</button>
+        <button class="icon-btn" title="Move down" onclick="event.stopPropagation(); moveGame(3, 1)">↓</button>
+        <button class="icon-btn" title="Delete" onclick="event.stopPropagation(); deleteGame('untitled-horror')">✕</button>
+      </div>
+      <div class="card-top">
+        <div class="card-icon" style="background:#0a1220;"><svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <circle cx="11" cy="11" r="3" fill="#378ADD" opacity="0.4"></circle>
+      <circle cx="11" cy="11" r="7" stroke="#378ADD" stroke-width="0.8" stroke-dasharray="2 2" fill="none"></circle>
+      <circle cx="11" cy="4" r="1.5" fill="#85B7EB"></circle></svg></div>
+        <span class="badge badge-announced">Announced</span>
+      </div>
+      <h2>Untitled Horror Game</h2>
+      <p class="card-tagline">Upcoming horror game — more details coming soon.</p>
+      <div class="platforms"><span class="platform">Mobile</span><span class="platform">PC</span></div>
+      <div class="progress-row"><span class="progress-label">Progress</span><span class="progress-pct">8%</span></div>
+      <div class="bar"><div class="bar-fill fill-blue" style="width:8%"></div></div>
+      <p class="eta">Est. release — TBD</p>
+    </article></main>
 
-  <div class="add-card-wrap" id="add-card-wrap">
+  <div class="add-card-wrap show" id="add-card-wrap">
     <button class="btn btn-primary" onclick="addGame()">+ Add a new game</button>
   </div>
 
 </div>
 
 <!-- ══════════════ DETAIL PAGE ══════════════ -->
-<div class="page" id="page-detail">
-  <div class="detail-wrap" id="detail-wrap"></div>
+<div class="page active" id="page-detail">
+  <div class="detail-wrap" id="detail-wrap">
+      <a class="back-link" onclick="return showPage('projects')">← Back to all games</a>
+      <span class="edit-field-label">Title</span>
+      <input class="edit-field editable" id="edit-title" value="Speed Islands">
+      <span class="edit-field-label">Tagline (shown on the games grid)</span>
+      <input class="edit-field editable" id="edit-tagline" value="A game that takes a new approach on the &quot;Incremental Simulator&quot; genre.">
+      <span class="edit-field-label">Full description (shown on this page)</span>
+      <textarea class="edit-field editable" id="edit-description">Speed Islands reimagines the incremental simulator genre around momentum: every island you unlock feeds speed back into your run instead of just sitting there as a number going up. Hop between floating islands, chain speed boosts, and unlock new zones as your run snowballs.
+
+The long-term plan is a small ecosystem of islands, each with its own gimmick, plus a Roblox version so friends can race on the same server.</textarea>
+      <span class="edit-field-label">Icon</span>
+      <select class="edit-field editable" id="edit-icon">
+        <option value="triangle" selected="">triangle</option><option value="grid">grid</option><option value="clock">clock</option><option value="orbit">orbit</option>
+      </select>
+      <span class="edit-field-label">Status badge</span>
+      <select class="edit-field editable" id="edit-badgeType">
+        <option value="dev" selected="">In dev</option><option value="alpha">Alpha</option><option value="soon">Coming soon</option><option value="announced">Announced</option>
+      </select>
+      <span class="edit-field-label">Badge text (optional override)</span>
+      <input class="edit-field editable" id="edit-badgeText" value="In dev">
+      <span class="edit-field-label">Platforms</span>
+      <div class="edit-btn-row" style="margin-bottom:10px;">
+        <label style="font-size:12px;color:#9490c0;display:flex;align-items:center;gap:4px;">
+            <input type="checkbox" class="edit-platform" value="PC" checked=""> PC
+          </label><label style="font-size:12px;color:#9490c0;display:flex;align-items:center;gap:4px;">
+            <input type="checkbox" class="edit-platform" value="Mobile"> Mobile
+          </label><label style="font-size:12px;color:#9490c0;display:flex;align-items:center;gap:4px;">
+            <input type="checkbox" class="edit-platform" value="Browser"> Browser
+          </label><label style="font-size:12px;color:#9490c0;display:flex;align-items:center;gap:4px;">
+            <input type="checkbox" class="edit-platform" value="Roblox" checked=""> Roblox
+          </label>
+      </div>
+      <span class="edit-field-label">Progress (%)</span>
+      <input class="edit-field editable" id="edit-progress" type="number" min="0" max="100" value="25">
+      <span class="edit-field-label">Estimated release</span>
+      <input class="edit-field editable" id="edit-eta" value="mid 2026">
+
+      <p class="detail-section-label" style="margin-top:1.5rem;">Public links</p>
+      <div class="links-list" id="edit-links-list">
+        
+      </div>
+      <button class="btn btn-sm" onclick="addLink()">+ Add link</button>
+
+      <div class="edit-btn-row" style="margin-top:2rem;">
+        <button class="btn btn-primary" onclick="saveGameEdits()">Save changes</button>
+      </div>
+    </div>
 </div>
 
 <!-- ══════════════ ABOUT PAGE ══════════════ -->
@@ -704,17 +833,65 @@
   <div class="about-hero">
     <p class="about-hero-eyebrow">About us</p>
     <h1>Galactic Nebula Games</h1>
-    <p id="about-tagline"></p>
+    <p id="about-tagline">An indie studio making games and apps across PC, mobile, browser, and Roblox.</p>
   </div>
 
   <p class="about-section-label">Find us online</p>
 
-  <div class="social-grid" id="social-grid"></div>
+  <div class="social-grid" id="social-grid"><a class="social-card" style="--accent: #E24B4A;" href="https://www.youtube.com/@GalacticNebulaGames" target="_blank" rel="noopener">
+      <div class="social-card-top">
+        <div class="social-icon" style="background:#1a0e0e;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <rect x="2" y="5" width="20" height="14" rx="4" stroke="#E24B4A" stroke-width="1.2" fill="none"></rect>
+      <polygon points="10,9 16,12 10,15" fill="#E24B4A"></polygon></svg></div>
+        <div>
+          <div class="social-card-name">GalacticNebulaGames</div>
+          <div class="social-card-handle">YouTube</div>
+        </div>
+      </div>
+      <div class="social-card-desc">The official studio channel — devlogs, trailers, and updates.</div>
+      <div class="social-card-arrow">Visit →</div>
+    </a><a class="social-card" style="--accent: #E24B4A;" href="https://www.youtube.com/@WyattDaMemer" target="_blank" rel="noopener">
+      <div class="social-card-top">
+        <div class="social-icon" style="background:#1a0e0e;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <rect x="2" y="5" width="20" height="14" rx="4" stroke="#E24B4A" stroke-width="1.2" fill="none"></rect>
+      <polygon points="10,9 16,12 10,15" fill="#E24B4A"></polygon></svg></div>
+        <div>
+          <div class="social-card-name">WyattDM</div>
+          <div class="social-card-handle">YouTube · Owner</div>
+        </div>
+      </div>
+      <div class="social-card-desc">Personal channel of the studio's founder.</div>
+      <div class="social-card-arrow">Visit →</div>
+    </a><a class="social-card" style="--accent: #7F77DD;" href="https://www.discord.com/invite/fhf7gpxrGt" target="_blank" rel="noopener">
+      <div class="social-card-top">
+        <div class="social-icon" style="background:#12101e;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M9 12a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" fill="#7F77DD"></path>
+      <path d="M16.5 4.5A14.5 14.5 0 0 0 12 4a14.5 14.5 0 0 0-4.5.5S5 5.5 4 9.5c0 0-1 4 0 7 0 0 2.5 2 4.5 2l1-1.5a8.5 8.5 0 0 1-2-1.5s.3.2.8.5c.7.3 1.4.5 2.2.7.9.2 1.7.2 2.5.2s1.6 0 2.5-.2c.8-.2 1.5-.4 2.2-.7.5-.3.8-.5.8-.5a8.5 8.5 0 0 1-2 1.5l1 1.5c2 0 4.5-2 4.5-2 1-3 0-7 0-7-1-4-3.5-5-3.5-5Z" stroke="#7F77DD" stroke-width="1" fill="none"></path></svg></div>
+        <div>
+          <div class="social-card-name">Discord server</div>
+          <div class="social-card-handle">Community</div>
+        </div>
+      </div>
+      <div class="social-card-desc">Join the community — chat, updates, and early announcements.</div>
+      <div class="social-card-arrow">Join →</div>
+    </a><a class="social-card" style="--accent: #5DCAA5;" href="https://www.roblox.com/share/g/153596513" target="_blank" rel="noopener">
+      <div class="social-card-top">
+        <div class="social-icon" style="background:#0d1f18;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <rect x="5" y="5" width="14" height="14" rx="2" stroke="#5DCAA5" stroke-width="1.2" fill="none" transform="rotate(15 12 12)"></rect>
+      <rect x="9" y="9" width="6" height="6" rx="1" fill="#5DCAA5" opacity="0.5" transform="rotate(15 12 12)"></rect></svg></div>
+        <div>
+          <div class="social-card-name">Roblox group</div>
+          <div class="social-card-handle">Roblox</div>
+        </div>
+      </div>
+      <div class="social-card-desc">Follow the group to stay updated on Roblox releases.</div>
+      <div class="social-card-arrow">Follow →</div>
+    </a></div>
 
 </div>
 
 <footer>
-  &copy; 2026 Galactic Nebula Games · galacticnebulagames.com
+  © 2026 Galactic Nebula Games · galacticnebulagames.com
 </footer>
 
 <script>
@@ -1163,5 +1340,7 @@ renderGrid();
 renderAbout();
 routeFromHash();
 </script>
-</body>
-</html>
+<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;56993d5f956743a2bc0987f077e2d7f2&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+
+</body></html>
