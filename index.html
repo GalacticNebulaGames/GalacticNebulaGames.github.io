@@ -21,6 +21,8 @@
       justify-content: space-between;
       padding: 1.5rem 2rem;
       border-bottom: 0.5px solid #1e1a3a;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
     .logo {
       display: flex;
@@ -34,15 +36,32 @@
       color: #e8e4ff;
       letter-spacing: 0.02em;
     }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; }
     .nav-links { display: flex; gap: 1.5rem; }
     .nav-links a {
       font-size: 13px;
       color: #7a78a0;
       text-decoration: none;
       transition: color 0.2s;
+      cursor: pointer;
     }
     .nav-links a:hover { color: #c4bfff; }
     .nav-links a.active { color: #c4bfff; }
+
+    .lock-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 0.5px solid #2a2645;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lock-btn:hover { border-color: #534AB7; }
+    .lock-btn.unlocked { border-color: #5DCAA5; background: #0d1f18; }
 
     /* ── Pages ── */
     .page { display: none; }
@@ -104,8 +123,17 @@
       gap: 1rem;
       max-width: 960px;
       margin: 0 auto;
-      padding: 0 1.5rem 4rem;
+      padding: 0 1.5rem 3rem;
     }
+
+    .add-card-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      display: none;
+      text-align: center;
+    }
+    .add-card-wrap.show { display: block; }
 
     /* ── Card ── */
     .card {
@@ -114,6 +142,9 @@
       border-radius: 14px;
       padding: 1.25rem;
       transition: border-color 0.2s;
+      cursor: pointer;
+      position: relative;
+      text-align: left;
     }
     .card:hover { border-color: #534AB7; }
     .card-top {
@@ -129,6 +160,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
     .card h2 {
       font-size: 15px;
@@ -136,7 +168,7 @@
       color: #e8e4ff;
       margin-bottom: 5px;
     }
-    .card p {
+    .card p.card-tagline {
       font-size: 13px;
       color: #6e6c8a;
       line-height: 1.55;
@@ -149,6 +181,7 @@
       padding: 3px 10px;
       border-radius: 20px;
       font-weight: 500;
+      white-space: nowrap;
     }
     .badge-dev       { background: #1e1a3a; color: #7F77DD; }
     .badge-alpha     { background: #0d1f18; color: #5DCAA5; }
@@ -285,6 +318,91 @@
       margin-top: auto;
     }
 
+    /* ── Detail page ── */
+    .detail-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #7a78a0;
+      text-decoration: none;
+      cursor: pointer;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #c4bfff; }
+    .detail-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .detail-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .detail-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .detail-header h1 {
+      font-size: 26px;
+      font-weight: 500;
+      color: #e8e4ff;
+    }
+    .detail-tagline { font-size: 14px; color: #7a78a0; }
+
+    .detail-platforms { display: flex; gap: 6px; flex-wrap: wrap; margin: 1.25rem 0 1.5rem; }
+
+    .detail-progress { margin-bottom: 2rem; }
+
+    .detail-section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #534AB7;
+      margin-bottom: 0.75rem;
+    }
+    .detail-desc {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #b3affc;
+      white-space: pre-wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .links-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1rem; }
+    .link-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: #0e1020;
+      border: 0.5px solid #1e1a3a;
+      border-radius: 10px;
+      padding: 12px 16px;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .link-row:hover { border-color: #534AB7; }
+    .link-row-label { font-size: 13px; color: #e8e4ff; }
+    .link-row-arrow { font-size: 12px; color: #534AB7; }
+    .no-links { font-size: 13px; color: #44415c; }
+
     /* ── Footer ── */
     footer {
       text-align: center;
@@ -295,12 +413,237 @@
     }
 
     .card[hidden] { display: none; }
+
+    /* ── Edit affordances ── */
+    .editable {
+      outline: 1px dashed #534AB7;
+      outline-offset: 2px;
+      border-radius: 4px;
+      background: #12102455;
+    }
+    .edit-field {
+      width: 100%;
+      background: #0e1020;
+      border: 1px solid #2a2645;
+      border-radius: 8px;
+      color: #e8e4ff;
+      font-family: inherit;
+      font-size: 13px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+    }
+    textarea.edit-field { resize: vertical; min-height: 90px; line-height: 1.6; }
+    .edit-field-label { font-size: 11px; color: #7a78a0; margin-bottom: 4px; display: block; }
+    select.edit-field { cursor: pointer; }
+    .edit-btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      font-size: 12px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 0.5px solid #2a2645;
+      background: #131525;
+      color: #c4bfff;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn:hover { border-color: #534AB7; }
+    .btn-primary { background: #534AB7; border-color: #534AB7; color: #fff; }
+    .btn-primary:hover { background: #443e9c; }
+    .btn-danger { color: #E24B4A; }
+    .btn-danger:hover { border-color: #E24B4A; }
+    .btn-sm { padding: 5px 11px; font-size: 11px; }
+
+    .card-edit-controls {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 6px;
+    }
+    .icon-btn {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      background: #131525;
+      border: 0.5px solid #2a2645;
+      cursor: pointer;
+      color: #9490c0;
+      font-size: 12px;
+    }
+    .icon-btn:hover { border-color: #534AB7; color: #c4bfff; }
+
+    .admin-bar {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #131020;
+      border-bottom: 0.5px solid #534AB7;
+      padding: 10px 1.5rem;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .admin-bar.show { display: flex; }
+    .admin-bar-msg { font-size: 12px; color: #c4bfff; }
+
+    /* ── Modal ── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(5,4,12,0.75);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-backdrop.show { display: flex; }
+    .modal {
+      background: #0e1020;
+      border: 0.5px solid #2a2645;
+      border-radius: 16px;
+      padding: 1.75rem;
+      max-width: 360px;
+      width: 100%;
+    }
+    .modal h3 { font-size: 15px; font-weight: 500; margin-bottom: 6px; color: #e8e4ff; }
+    .modal p.modal-sub { font-size: 12px; color: #7a78a0; margin-bottom: 1rem; }
+    .modal-error { font-size: 12px; color: #E24B4A; margin: -4px 0 8px; display: none; }
+    .modal-error.show { display: block; }
   </style>
 </head>
 <body>
 
+<!-- Site data lives here as JSON. Editing the page through the lock icon updates this
+     in memory; "Download updated site" writes a new copy of this file with your
+     changes baked in, so you never have to touch the code by hand. -->
+<script id="site-data" type="application/json">
+{
+  "passwordHash": "455e0d5db0a653286f4b5a66371c18038cbb3b49cab29eb65a428783539ea3ea",
+  "games": [
+    {
+      "id": "speed-islands",
+      "title": "Speed Islands",
+      "tagline": "A game that takes a new approach on the \"Incremental Simulator\" genre.",
+      "description": "Speed Islands reimagines the incremental simulator genre around momentum: every island you unlock feeds speed back into your run instead of just sitting there as a number going up. Hop between floating islands, chain speed boosts, and unlock new zones as your run snowballs.\n\nThe long-term plan is a small ecosystem of islands, each with its own gimmick, plus a Roblox version so friends can race on the same server.",
+      "icon": "triangle",
+      "badgeType": "dev",
+      "badgeText": "In dev",
+      "platforms": ["PC", "Roblox"],
+      "progress": 25,
+      "eta": "mid 2026",
+      "links": []
+    },
+    {
+      "id": "wmessage",
+      "title": "wMessage",
+      "tagline": "An all-new messaging app built around accessibility.",
+      "description": "wMessage is a messaging app built from the ground up with accessibility as the starting point rather than an afterthought \u2014 screen reader support, adjustable text and contrast, and a simple, predictable layout.\n\nIt's currently in alpha and getting close to a first public release on PC and in-browser.",
+      "icon": "grid",
+      "badgeType": "alpha",
+      "badgeText": "Alpha",
+      "platforms": ["PC", "Browser"],
+      "progress": 82,
+      "eta": "late 2026",
+      "links": []
+    },
+    {
+      "id": "fredbears",
+      "title": "Fredbears: The Untold Story",
+      "tagline": "A FNaF fan-game taking place at Fredbear's Family Diner.",
+      "description": "A Five Nights at Freddy's fan-game set at Fredbear's Family Diner, told from a new angle on a familiar night. Expect a mix of classic night-shift tension with some new mechanics we haven't seen elsewhere in the fan-game space.\n\nStill early \u2014 more will be shared as the story and mechanics come together.",
+      "icon": "clock",
+      "badgeType": "soon",
+      "badgeText": "Coming soon",
+      "platforms": ["PC"],
+      "progress": 10,
+      "eta": "late 2026 or early 2027",
+      "links": []
+    },
+    {
+      "id": "untitled-horror",
+      "title": "Untitled Horror Game",
+      "tagline": "Upcoming horror game \u2014 more details coming soon.",
+      "description": "An upcoming horror game for mobile and PC. We're keeping details under wraps for now while the concept comes together \u2014 check back for updates.",
+      "icon": "orbit",
+      "badgeType": "announced",
+      "badgeText": "Announced",
+      "platforms": ["Mobile", "PC"],
+      "progress": 8,
+      "eta": "TBD",
+      "links": []
+    }
+  ],
+  "about": {
+    "tagline": "An indie studio making games and apps across PC, mobile, browser, and Roblox.",
+    "socials": [
+      {
+        "name": "GalacticNebulaGames",
+        "handle": "YouTube",
+        "desc": "The official studio channel \u2014 devlogs, trailers, and updates.",
+        "url": "https://www.youtube.com/@GalacticNebulaGames",
+        "icon": "youtube",
+        "cta": "Visit"
+      },
+      {
+        "name": "WyattDM",
+        "handle": "YouTube \u00b7 Owner",
+        "desc": "Personal channel of the studio's founder.",
+        "url": "https://www.youtube.com/@WyattDaMemer",
+        "icon": "youtube",
+        "cta": "Visit"
+      },
+      {
+        "name": "Discord server",
+        "handle": "Community",
+        "desc": "Join the community \u2014 chat, updates, and early announcements.",
+        "url": "https://www.discord.com/invite/fhf7gpxrGt",
+        "icon": "discord",
+        "cta": "Join"
+      },
+      {
+        "name": "Roblox group",
+        "handle": "Roblox",
+        "desc": "Follow the group to stay updated on Roblox releases.",
+        "url": "https://www.roblox.com/share/g/153596513",
+        "icon": "roblox",
+        "cta": "Follow"
+      }
+    ]
+  }
+}
+</script>
+
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <h3 id="modal-title">Enter password</h3>
+    <p class="modal-sub" id="modal-sub">Unlock editing for this site.</p>
+    <p class="modal-error" id="modal-error">Incorrect password.</p>
+    <input type="password" class="edit-field" id="modal-input" placeholder="Password" />
+    <input type="password" class="edit-field" id="modal-input-2" placeholder="Confirm password" style="display:none" />
+    <div class="edit-btn-row">
+      <button class="btn btn-primary" id="modal-confirm">Unlock</button>
+      <button class="btn" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="admin-bar" id="admin-bar">
+  <span class="admin-bar-msg" id="admin-bar-msg">Editing unlocked.</span>
+  <div class="edit-btn-row">
+    <button class="btn btn-sm" onclick="openChangePassword()">Change password</button>
+    <button class="btn btn-sm btn-primary" id="download-btn" onclick="downloadSite()" style="display:none">⬇ Download updated site</button>
+    <button class="btn btn-sm" onclick="lockEditing()">Lock</button>
+  </div>
+</div>
+
 <nav>
-  <a class="logo" href="#" onclick="showPage('projects')">
+  <a class="logo" href="#" onclick="return showPage('projects')">
     <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
       <circle cx="16" cy="16" r="15" stroke="#534AB7" stroke-width="0.8"/>
       <circle cx="16" cy="16" r="6" fill="#534AB7" opacity="0.25"/>
@@ -311,9 +654,17 @@
     </svg>
     <span class="logo-text">Galactic Nebula Games</span>
   </a>
-  <div class="nav-links">
-    <a href="#" id="nav-about" onclick="showPage('about')">About</a>
-    <a href="#" id="nav-projects" class="active" onclick="showPage('projects')">Games</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a id="nav-about" onclick="return showPage('about')">About</a>
+      <a id="nav-projects" class="active" onclick="return showPage('projects')">Games</a>
+    </div>
+    <button class="lock-btn" id="lock-btn" onclick="onLockClick()" title="Edit this site">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" id="lock-icon">
+        <rect x="5" y="11" width="14" height="9" rx="2" stroke="#7a78a0" stroke-width="1.5"/>
+        <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#7a78a0" stroke-width="1.5" fill="none"/>
+      </svg>
+    </button>
   </div>
 </nav>
 
@@ -334,108 +685,17 @@
     <button class="pill" data-filter="Roblox">Roblox</button>
   </div>
 
-  <main class="grid" id="grid">
+  <main class="grid" id="grid"></main>
 
-    <article class="card" data-platforms="PC,Roblox">
-      <div class="card-top">
-        <div class="card-icon" style="background:#1a1630;">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <polygon points="11,2 20,19 2,19" stroke="#7F77DD" stroke-width="1.2" fill="none"/>
-            <circle cx="11" cy="13" r="2" fill="#534AB7"/>
-          </svg>
-        </div>
-        <span class="badge badge-dev">In dev</span>
-      </div>
-      <h2>Slaughter Shift</h2>
-      <p>A Dead By Daylight / Violence District inspired game.</p>
-      <div class="platforms">
-        <span class="platform">PC</span>
-        <span class="platform">Roblox</span>
-      </div>
-      <div class="progress-row">
-        <span class="progress-label">Progress</span>
-        <span class="progress-pct">25%</span>
-      </div>
-      <div class="bar"><div class="bar-fill fill-purple" style="width:25%"></div></div>
-      <p class="eta">Est. release — mid 2026</p>
-    </article>
+  <div class="add-card-wrap" id="add-card-wrap">
+    <button class="btn btn-primary" onclick="addGame()">+ Add a new game</button>
+  </div>
 
-    <article class="card" data-platforms="PC,Browser">
-      <div class="card-top">
-        <div class="card-icon" style="background:#0d1f18;">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <rect x="3"  y="3"  width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"/>
-            <rect x="12" y="3"  width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"/>
-            <rect x="3"  y="12" width="7" height="7" rx="1.5" stroke="#1D9E75" stroke-width="1.2" fill="none"/>
-            <rect x="12" y="12" width="7" height="7" rx="1.5" stroke="#5DCAA5" stroke-width="1.2" fill="none"/>
-          </svg>
-        </div>
-        <span class="badge badge-alpha">Alpha</span>
-      </div>
-      <h2>wMessage</h2>
-      <p>An all-new messaging app built around accessibility.</p>
-      <div class="platforms">
-        <span class="platform">PC</span>
-        <span class="platform">Browser</span>
-      </div>
-      <div class="progress-row">
-        <span class="progress-label">Progress</span>
-        <span class="progress-pct">82%</span>
-      </div>
-      <div class="bar"><div class="bar-fill fill-teal" style="width:82%"></div></div>
-      <p class="eta">Est. release — late 2026</p>
-    </article>
+</div>
 
-    <article class="card" data-platforms="PC">
-      <div class="card-top">
-        <div class="card-icon" style="background:#1a140a;">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <circle cx="11" cy="11" r="8" stroke="#EF9F27" stroke-width="1.2" fill="none"/>
-            <path d="M11 3 L11 11 L17 11" stroke="#BA7517" stroke-width="1.2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <span class="badge badge-soon">Coming soon</span>
-      </div>
-      <h2>Fredbears: The Untold Story</h2>
-      <p>A FNaF fan-game taking place at Fredbear's Family Diner.</p>
-      <div class="platforms">
-        <span class="platform">PC</span>
-      </div>
-      <div class="progress-row">
-        <span class="progress-label">Progress</span>
-        <span class="progress-pct">10%</span>
-      </div>
-      <div class="bar"><div class="bar-fill fill-amber" style="width:10%"></div></div>
-      <p class="eta">Est. release — late 2026 or early 2027</p>
-    </article>
-
-    <article class="card" data-platforms="Mobile,PC">
-      <div class="card-top">
-        <div class="card-icon" style="background:#0a1220;">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <circle cx="11" cy="11" r="3" fill="#378ADD" opacity="0.4"/>
-            <circle cx="11" cy="11" r="7" stroke="#378ADD" stroke-width="0.8" stroke-dasharray="2 2" fill="none"/>
-            <circle cx="11" cy="4"  r="1.5" fill="#85B7EB"/>
-          </svg>
-        </div>
-        <span class="badge badge-announced">Announced</span>
-      </div>
-      <h2>Untitled Horror Game</h2>
-      <p>Upcoming horror game — more details coming soon.</p>
-      <div class="platforms">
-        <span class="platform">Mobile</span>
-        <span class="platform">PC</span>
-      </div>
-      <div class="progress-row">
-        <span class="progress-label">Progress</span>
-        <span class="progress-pct">8%</span>
-      </div>
-      <div class="bar"><div class="bar-fill fill-blue" style="width:8%"></div></div>
-      <p class="eta">Est. release — TBD</p>
-    </article>
-
-  </main>
-
+<!-- ══════════════ DETAIL PAGE ══════════════ -->
+<div class="page" id="page-detail">
+  <div class="detail-wrap" id="detail-wrap"></div>
 </div>
 
 <!-- ══════════════ ABOUT PAGE ══════════════ -->
@@ -444,86 +704,12 @@
   <div class="about-hero">
     <p class="about-hero-eyebrow">About us</p>
     <h1>Galactic Nebula Games</h1>
-    <p>An indie studio making games and apps across PC, mobile, browser, and Roblox.</p>
+    <p id="about-tagline"></p>
   </div>
 
   <p class="about-section-label">Find us online</p>
 
-  <div class="social-grid">
-
-    <!-- Studio YouTube -->
-    <a class="social-card" href="https://www.youtube.com/@GalacticNebulaGames" target="_blank" rel="noopener" style="--accent:#E24B4A;">
-      <div class="social-card-top">
-        <div class="social-icon" style="background:#1a0e0e;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="5" width="20" height="14" rx="4" stroke="#E24B4A" stroke-width="1.2" fill="none"/>
-            <polygon points="10,9 16,12 10,15" fill="#E24B4A"/>
-          </svg>
-        </div>
-        <div>
-          <div class="social-card-name">GalacticNebulaGames</div>
-          <div class="social-card-handle">YouTube</div>
-        </div>
-      </div>
-      <div class="social-card-desc">The official studio channel — devlogs, trailers, and updates.</div>
-      <div class="social-card-arrow">Visit →</div>
-    </a>
-
-    <!-- Owner YouTube -->
-    <a class="social-card" href="https://www.youtube.com/@WyattDaMemer" target="_blank" rel="noopener" style="--accent:#E24B4A;">
-      <div class="social-card-top">
-        <div class="social-icon" style="background:#1a0e0e;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="5" width="20" height="14" rx="4" stroke="#E24B4A" stroke-width="1.2" fill="none"/>
-            <polygon points="10,9 16,12 10,15" fill="#E24B4A"/>
-          </svg>
-        </div>
-        <div>
-          <div class="social-card-name">WyattDM</div>
-          <div class="social-card-handle">YouTube · Owner</div>
-        </div>
-      </div>
-      <div class="social-card-desc">Personal channel of the studio's founder.</div>
-      <div class="social-card-arrow">Visit →</div>
-    </a>
-
-    <!-- Discord -->
-    <a class="social-card" href="https://www.discord.com/invite/fhf7gpxrGt" target="_blank" rel="noopener" style="--accent:#7F77DD;">
-      <div class="social-card-top">
-        <div class="social-icon" style="background:#12101e;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M9 12a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" fill="#7F77DD"/>
-            <path d="M16.5 4.5A14.5 14.5 0 0 0 12 4a14.5 14.5 0 0 0-4.5.5S5 5.5 4 9.5c0 0-1 4 0 7 0 0 2.5 2 4.5 2l1-1.5a8.5 8.5 0 0 1-2-1.5s.3.2.8.5c.7.3 1.4.5 2.2.7.9.2 1.7.2 2.5.2s1.6 0 2.5-.2c.8-.2 1.5-.4 2.2-.7.5-.3.8-.5.8-.5a8.5 8.5 0 0 1-2 1.5l1 1.5c2 0 4.5-2 4.5-2 1-3 0-7 0-7-1-4-3.5-5-3.5-5Z" stroke="#7F77DD" stroke-width="1" fill="none"/>
-          </svg>
-        </div>
-        <div>
-          <div class="social-card-name">Discord server</div>
-          <div class="social-card-handle">Community</div>
-        </div>
-      </div>
-      <div class="social-card-desc">Join the community — chat, updates, and early announcements.</div>
-      <div class="social-card-arrow">Join →</div>
-    </a>
-
-    <!-- Roblox -->
-    <a class="social-card" href="https://www.roblox.com/share/g/153596513" target="_blank" rel="noopener" style="--accent:#5DCAA5;">
-      <div class="social-card-top">
-        <div class="social-icon" style="background:#0d1f18;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <rect x="5" y="5" width="14" height="14" rx="2" stroke="#5DCAA5" stroke-width="1.2" fill="none" transform="rotate(15 12 12)"/>
-            <rect x="9" y="9" width="6" height="6" rx="1" fill="#5DCAA5" opacity="0.5" transform="rotate(15 12 12)"/>
-          </svg>
-        </div>
-        <div>
-          <div class="social-card-name">Roblox group</div>
-          <div class="social-card-handle">Roblox</div>
-        </div>
-      </div>
-      <div class="social-card-desc">Follow the group to stay updated on Roblox releases.</div>
-      <div class="social-card-arrow">Follow →</div>
-    </a>
-
-  </div>
+  <div class="social-grid" id="social-grid"></div>
 
 </div>
 
@@ -532,32 +718,450 @@
 </footer>
 
 <script>
-  function showPage(name) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-    document.getElementById('page-' + name).classList.add('active');
-    document.getElementById('nav-' + name).classList.add('active');
-    return false;
-  }
+/* ============================================================
+   DATA
+   ============================================================ */
+const DATA = JSON.parse(document.getElementById('site-data').textContent);
+let editing = false;
+let dirty = false;
+let pendingModalAction = null; // 'unlock' | 'setup' | 'change'
 
-  const pills = document.querySelectorAll('.pill');
-  const cards = document.querySelectorAll('.card');
+/* ============================================================
+   ICONS
+   ============================================================ */
+const ICONS = {
+  triangle: (c1,c2) => `<svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <polygon points="11,2 20,19 2,19" stroke="${c1}" stroke-width="1.2" fill="none"/>
+      <circle cx="11" cy="13" r="2" fill="${c2}"/></svg>`,
+  grid: (c1,c2) => `<svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="${c1}" stroke-width="1.2" fill="none"/>
+      <rect x="12" y="3" width="7" height="7" rx="1.5" stroke="${c1}" stroke-width="1.2" fill="none"/>
+      <rect x="3" y="12" width="7" height="7" rx="1.5" stroke="${c1}" stroke-width="1.2" fill="none"/>
+      <rect x="12" y="12" width="7" height="7" rx="1.5" stroke="${c2}" stroke-width="1.2" fill="none"/></svg>`,
+  clock: (c1,c2) => `<svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <circle cx="11" cy="11" r="8" stroke="${c1}" stroke-width="1.2" fill="none"/>
+      <path d="M11 3 L11 11 L17 11" stroke="${c2}" stroke-width="1.2" stroke-linecap="round"/></svg>`,
+  orbit: (c1,c2) => `<svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <circle cx="11" cy="11" r="3" fill="${c1}" opacity="0.4"/>
+      <circle cx="11" cy="11" r="7" stroke="${c1}" stroke-width="0.8" stroke-dasharray="2 2" fill="none"/>
+      <circle cx="11" cy="4" r="1.5" fill="${c2}"/></svg>`
+};
+const SOCIAL_ICONS = {
+  youtube: c => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <rect x="2" y="5" width="20" height="14" rx="4" stroke="${c}" stroke-width="1.2" fill="none"/>
+      <polygon points="10,9 16,12 10,15" fill="${c}"/></svg>`,
+  discord: c => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M9 12a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" fill="${c}"/>
+      <path d="M16.5 4.5A14.5 14.5 0 0 0 12 4a14.5 14.5 0 0 0-4.5.5S5 5.5 4 9.5c0 0-1 4 0 7 0 0 2.5 2 4.5 2l1-1.5a8.5 8.5 0 0 1-2-1.5s.3.2.8.5c.7.3 1.4.5 2.2.7.9.2 1.7.2 2.5.2s1.6 0 2.5-.2c.8-.2 1.5-.4 2.2-.7.5-.3.8-.5.8-.5a8.5 8.5 0 0 1-2 1.5l1 1.5c2 0 4.5-2 4.5-2 1-3 0-7 0-7-1-4-3.5-5-3.5-5Z" stroke="${c}" stroke-width="1" fill="none"/></svg>`,
+  roblox: c => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <rect x="5" y="5" width="14" height="14" rx="2" stroke="${c}" stroke-width="1.2" fill="none" transform="rotate(15 12 12)"/>
+      <rect x="9" y="9" width="6" height="6" rx="1" fill="${c}" opacity="0.5" transform="rotate(15 12 12)"/></svg>`
+};
+const BADGE_THEMES = {
+  dev:       { label: "In dev",       badgeClass: "badge-dev",       iconBg: "#1a1630", c1: "#7F77DD", c2: "#534AB7", barClass: "fill-purple" },
+  alpha:     { label: "Alpha",        badgeClass: "badge-alpha",     iconBg: "#0d1f18", c1: "#1D9E75", c2: "#5DCAA5", barClass: "fill-teal" },
+  soon:      { label: "Coming soon",  badgeClass: "badge-soon",      iconBg: "#1a140a", c1: "#EF9F27", c2: "#BA7517", barClass: "fill-amber" },
+  announced: { label: "Announced",    badgeClass: "badge-announced", iconBg: "#0a1220", c1: "#378ADD", c2: "#85B7EB", barClass: "fill-blue" }
+};
 
-  pills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      pills.forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      const filter = pill.dataset.filter;
-      cards.forEach(card => {
-        const platforms = card.dataset.platforms || '';
-        if (filter === 'all' || platforms.includes(filter)) {
-          card.removeAttribute('hidden');
-        } else {
-          card.setAttribute('hidden', '');
-        }
-      });
-    });
+function escapeHtml(s) {
+  return (s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function slugify(s) {
+  return (s || 'game').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') || ('game-' + Date.now());
+}
+
+/* ============================================================
+   RENDER: GAMES GRID
+   ============================================================ */
+function renderGrid() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  DATA.games.forEach((game, idx) => {
+    const theme = BADGE_THEMES[game.badgeType] || BADGE_THEMES.dev;
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.dataset.platforms = game.platforms.join(',');
+    card.onclick = (e) => { if (!e.target.closest('.card-edit-controls')) openDetail(game.id); };
+
+    let editControls = '';
+    if (editing) {
+      editControls = `<div class="card-edit-controls">
+        <button class="icon-btn" title="Move up" onclick="event.stopPropagation(); moveGame(${idx}, -1)">↑</button>
+        <button class="icon-btn" title="Move down" onclick="event.stopPropagation(); moveGame(${idx}, 1)">↓</button>
+        <button class="icon-btn" title="Delete" onclick="event.stopPropagation(); deleteGame('${game.id}')">✕</button>
+      </div>`;
+    }
+
+    card.innerHTML = `
+      ${editControls}
+      <div class="card-top">
+        <div class="card-icon" style="background:${theme.iconBg};">${ICONS[game.icon] ? ICONS[game.icon](theme.c1, theme.c2) : ''}</div>
+        <span class="badge ${theme.badgeClass}">${escapeHtml(game.badgeText || theme.label)}</span>
+      </div>
+      <h2>${escapeHtml(game.title)}</h2>
+      <p class="card-tagline">${escapeHtml(game.tagline)}</p>
+      <div class="platforms">${game.platforms.map(p => `<span class="platform">${escapeHtml(p)}</span>`).join('')}</div>
+      <div class="progress-row"><span class="progress-label">Progress</span><span class="progress-pct">${game.progress}%</span></div>
+      <div class="bar"><div class="bar-fill ${theme.barClass}" style="width:${game.progress}%"></div></div>
+      <p class="eta">Est. release — ${escapeHtml(game.eta)}</p>
+    `;
+    grid.appendChild(card);
   });
+  applyFilter();
+  document.getElementById('add-card-wrap').classList.toggle('show', editing);
+}
+
+/* ============================================================
+   RENDER: DETAIL PAGE
+   ============================================================ */
+let currentDetailId = null;
+
+function openDetail(id) {
+  currentDetailId = id;
+  location.hash = 'game/' + id;
+  renderDetail();
+  showPage('detail', false);
+  window.scrollTo(0,0);
+}
+
+function renderDetail() {
+  const game = DATA.games.find(g => g.id === currentDetailId);
+  const wrap = document.getElementById('detail-wrap');
+  if (!game) { wrap.innerHTML = '<p class="no-links">Game not found.</p>'; return; }
+  const theme = BADGE_THEMES[game.badgeType] || BADGE_THEMES.dev;
+
+  if (!editing) {
+    wrap.innerHTML = `
+      <a class="back-link" onclick="return showPage('projects')">← Back to all games</a>
+      <div class="detail-header">
+        <div class="detail-icon" style="background:${theme.iconBg};">${ICONS[game.icon] ? ICONS[game.icon](theme.c1, theme.c2) : ''}</div>
+        <div>
+          <div class="detail-title-row">
+            <h1>${escapeHtml(game.title)}</h1>
+            <span class="badge ${theme.badgeClass}">${escapeHtml(game.badgeText || theme.label)}</span>
+          </div>
+          <p class="detail-tagline">${escapeHtml(game.tagline)}</p>
+        </div>
+      </div>
+      <div class="detail-platforms">${game.platforms.map(p => `<span class="platform">${escapeHtml(p)}</span>`).join('')}</div>
+      <div class="detail-progress">
+        <div class="progress-row"><span class="progress-label">Progress</span><span class="progress-pct">${game.progress}%</span></div>
+        <div class="bar"><div class="bar-fill ${theme.barClass}" style="width:${game.progress}%"></div></div>
+        <p class="eta">Est. release — ${escapeHtml(game.eta)}</p>
+      </div>
+      <p class="detail-section-label">About</p>
+      <p class="detail-desc">${escapeHtml(game.description)}</p>
+      <p class="detail-section-label">Links</p>
+      <div class="links-list">
+        ${game.links.length ? game.links.map(l => `<a class="link-row" href="${escapeHtml(l.url)}" target="_blank" rel="noopener"><span class="link-row-label">${escapeHtml(l.label)}</span><span class="link-row-arrow">Visit →</span></a>`).join('') : '<p class="no-links">No public links yet.</p>'}
+      </div>
+    `;
+  } else {
+    const platformOptions = ['PC','Mobile','Browser','Roblox'];
+    wrap.innerHTML = `
+      <a class="back-link" onclick="return showPage('projects')">← Back to all games</a>
+      <span class="edit-field-label">Title</span>
+      <input class="edit-field editable" id="edit-title" value="${escapeHtml(game.title)}" />
+      <span class="edit-field-label">Tagline (shown on the games grid)</span>
+      <input class="edit-field editable" id="edit-tagline" value="${escapeHtml(game.tagline)}" />
+      <span class="edit-field-label">Full description (shown on this page)</span>
+      <textarea class="edit-field editable" id="edit-description">${escapeHtml(game.description)}</textarea>
+      <span class="edit-field-label">Icon</span>
+      <select class="edit-field editable" id="edit-icon">
+        ${Object.keys(ICONS).map(k => `<option value="${k}" ${k===game.icon?'selected':''}>${k}</option>`).join('')}
+      </select>
+      <span class="edit-field-label">Status badge</span>
+      <select class="edit-field editable" id="edit-badgeType">
+        ${Object.keys(BADGE_THEMES).map(k => `<option value="${k}" ${k===game.badgeType?'selected':''}>${BADGE_THEMES[k].label}</option>`).join('')}
+      </select>
+      <span class="edit-field-label">Badge text (optional override)</span>
+      <input class="edit-field editable" id="edit-badgeText" value="${escapeHtml(game.badgeText || '')}" />
+      <span class="edit-field-label">Platforms</span>
+      <div class="edit-btn-row" style="margin-bottom:10px;">
+        ${platformOptions.map(p => `<label style="font-size:12px;color:#9490c0;display:flex;align-items:center;gap:4px;">
+            <input type="checkbox" class="edit-platform" value="${p}" ${game.platforms.includes(p)?'checked':''}/> ${p}
+          </label>`).join('')}
+      </div>
+      <span class="edit-field-label">Progress (%)</span>
+      <input class="edit-field editable" id="edit-progress" type="number" min="0" max="100" value="${game.progress}" />
+      <span class="edit-field-label">Estimated release</span>
+      <input class="edit-field editable" id="edit-eta" value="${escapeHtml(game.eta)}" />
+
+      <p class="detail-section-label" style="margin-top:1.5rem;">Public links</p>
+      <div class="links-list" id="edit-links-list">
+        ${game.links.map((l,i) => `
+          <div class="link-row" style="flex-direction:column;align-items:stretch;gap:6px;">
+            <input class="edit-field editable" style="margin-bottom:0;" data-link-label="${i}" value="${escapeHtml(l.label)}" placeholder="Link label, e.g. Play on Roblox" />
+            <input class="edit-field editable" style="margin-bottom:0;" data-link-url="${i}" value="${escapeHtml(l.url)}" placeholder="https://..." />
+            <button class="btn btn-sm btn-danger" onclick="removeLink(${i})">Remove link</button>
+          </div>`).join('')}
+      </div>
+      <button class="btn btn-sm" onclick="addLink()">+ Add link</button>
+
+      <div class="edit-btn-row" style="margin-top:2rem;">
+        <button class="btn btn-primary" onclick="saveGameEdits()">Save changes</button>
+      </div>
+    `;
+  }
+}
+
+function addLink() {
+  const game = DATA.games.find(g => g.id === currentDetailId);
+  saveGameEditsFromForm(false);
+  game.links.push({label: '', url: ''});
+  renderDetail();
+}
+function removeLink(i) {
+  const game = DATA.games.find(g => g.id === currentDetailId);
+  saveGameEditsFromForm(false);
+  game.links.splice(i,1);
+  renderDetail();
+}
+function saveGameEditsFromForm(markDirty) {
+  const game = DATA.games.find(g => g.id === currentDetailId);
+  if (!game || !document.getElementById('edit-title')) return;
+  game.title = document.getElementById('edit-title').value.trim() || game.title;
+  game.tagline = document.getElementById('edit-tagline').value;
+  game.description = document.getElementById('edit-description').value;
+  game.icon = document.getElementById('edit-icon').value;
+  game.badgeType = document.getElementById('edit-badgeType').value;
+  game.badgeText = document.getElementById('edit-badgeText').value;
+  game.platforms = Array.from(document.querySelectorAll('.edit-platform:checked')).map(c => c.value);
+  game.progress = Math.max(0, Math.min(100, parseInt(document.getElementById('edit-progress').value) || 0));
+  game.eta = document.getElementById('edit-eta').value;
+  const labels = document.querySelectorAll('[data-link-label]');
+  const urls = document.querySelectorAll('[data-link-url]');
+  game.links = Array.from(labels).map((el, i) => ({ label: el.value, url: urls[i].value })).filter(l => l.label || l.url);
+  if (markDirty) markDirty2();
+}
+function saveGameEdits() {
+  saveGameEditsFromForm(true);
+  renderGrid();
+  renderDetail();
+}
+function markDirty2() {
+  dirty = true;
+  document.getElementById('download-btn').style.display = 'inline-block';
+  document.getElementById('admin-bar-msg').textContent = 'Unsaved changes — download the updated site to publish it.';
+}
+
+function addGame() {
+  const id = slugify('untitled-game-' + (DATA.games.length + 1));
+  DATA.games.push({
+    id, title: 'New Game', tagline: 'A short one-line description.', description: 'Write more about this game here.',
+    icon: 'orbit', badgeType: 'announced', badgeText: '', platforms: ['PC'], progress: 0, eta: 'TBD', links: []
+  });
+  markDirty2();
+  renderGrid();
+  openDetail(id);
+}
+function deleteGame(id) {
+  if (!confirm('Delete this game? This cannot be undone once you download and publish.')) return;
+  DATA.games = DATA.games.filter(g => g.id !== id);
+  markDirty2();
+  renderGrid();
+}
+function moveGame(idx, dir) {
+  const j = idx + dir;
+  if (j < 0 || j >= DATA.games.length) return;
+  [DATA.games[idx], DATA.games[j]] = [DATA.games[j], DATA.games[idx]];
+  markDirty2();
+  renderGrid();
+}
+
+/* ============================================================
+   RENDER: ABOUT PAGE
+   ============================================================ */
+function renderAbout() {
+  document.getElementById('about-tagline').textContent = DATA.about.tagline;
+  const grid = document.getElementById('social-grid');
+  grid.innerHTML = '';
+  DATA.about.socials.forEach((s, i) => {
+    const iconColors = { youtube: '#E24B4A', discord: '#7F77DD', roblox: '#5DCAA5' };
+    const c = iconColors[s.icon] || '#7F77DD';
+    const iconBg = { youtube: '#1a0e0e', discord: '#12101e', roblox: '#0d1f18' }[s.icon] || '#12101e';
+    const card = document.createElement('a');
+    card.className = 'social-card';
+    card.style.setProperty('--accent', c);
+    card.href = s.url; card.target = '_blank'; card.rel = 'noopener';
+    card.innerHTML = `
+      <div class="social-card-top">
+        <div class="social-icon" style="background:${iconBg};">${SOCIAL_ICONS[s.icon] ? SOCIAL_ICONS[s.icon](c) : ''}</div>
+        <div>
+          <div class="social-card-name">${escapeHtml(s.name)}</div>
+          <div class="social-card-handle">${escapeHtml(s.handle)}</div>
+        </div>
+      </div>
+      <div class="social-card-desc">${escapeHtml(s.desc)}</div>
+      <div class="social-card-arrow">${escapeHtml(s.cta)} →</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================================
+   NAV / ROUTING
+   ============================================================ */
+function showPage(name, updateHash = true) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  const navEl = document.getElementById('nav-' + name);
+  if (navEl) navEl.classList.add('active');
+  if (updateHash) location.hash = name === 'projects' ? '' : name;
+  return false;
+}
+
+function applyFilter() {
+  const activePill = document.querySelector('.pill.active');
+  const filter = activePill ? activePill.dataset.filter : 'all';
+  document.querySelectorAll('.card').forEach(card => {
+    const platforms = card.dataset.platforms || '';
+    card.toggleAttribute('hidden', !(filter === 'all' || platforms.split(',').includes(filter)));
+  });
+}
+
+document.querySelectorAll('.pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    applyFilter();
+  });
+});
+
+function routeFromHash() {
+  const hash = location.hash.replace('#','');
+  if (hash.startsWith('game/')) {
+    currentDetailId = hash.slice(5);
+    renderDetail();
+    showPage('detail', false);
+  } else if (hash === 'about') {
+    showPage('about', false);
+  } else {
+    showPage('projects', false);
+  }
+}
+window.addEventListener('hashchange', routeFromHash);
+
+/* ============================================================
+   AUTH / EDIT MODE
+   ============================================================ */
+async function sha256(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+function onLockClick() {
+  if (editing) return;
+  pendingModalAction = 'unlock';
+  document.getElementById('modal-title').textContent = 'Enter password';
+  document.getElementById('modal-sub').textContent = 'Unlock editing for this site.';
+  document.getElementById('modal-input').value = '';
+  document.getElementById('modal-input').placeholder = 'Password';
+  document.getElementById('modal-input-2').style.display = 'none';
+  document.getElementById('modal-error').classList.remove('show');
+  document.getElementById('modal-backdrop').classList.add('show');
+  document.getElementById('modal-input').focus();
+}
+
+function openChangePassword() {
+  pendingModalAction = 'change';
+  document.getElementById('modal-title').textContent = 'Change password';
+  document.getElementById('modal-sub').textContent = 'Set a new password. You\'ll need it next time you edit.';
+  document.getElementById('modal-input').value = '';
+  document.getElementById('modal-input').placeholder = 'New password';
+  document.getElementById('modal-input-2').style.display = 'block';
+  document.getElementById('modal-input-2').value = '';
+  document.getElementById('modal-error').classList.remove('show');
+  document.getElementById('modal-backdrop').classList.add('show');
+  document.getElementById('modal-input').focus();
+}
+
+function closeModal() {
+  document.getElementById('modal-backdrop').classList.remove('show');
+}
+
+document.getElementById('modal-confirm').addEventListener('click', handleModalConfirm);
+document.getElementById('modal-input').addEventListener('keydown', e => { if (e.key === 'Enter') handleModalConfirm(); });
+
+async function handleModalConfirm() {
+  const pw = document.getElementById('modal-input').value;
+  if (!pw) return;
+  if (pendingModalAction === 'unlock') {
+    const hash = await sha256(pw);
+    if (hash === DATA.passwordHash) {
+      closeModal();
+      unlockEditing();
+    } else {
+      document.getElementById('modal-error').classList.add('show');
+    }
+  } else if (pendingModalAction === 'change') {
+    const pw2 = document.getElementById('modal-input-2').value;
+    if (pw !== pw2) {
+      document.getElementById('modal-error').textContent = "Passwords don't match.";
+      document.getElementById('modal-error').classList.add('show');
+      return;
+    }
+    if (pw.length < 6) {
+      document.getElementById('modal-error').textContent = 'Use at least 6 characters.';
+      document.getElementById('modal-error').classList.add('show');
+      return;
+    }
+    DATA.passwordHash = await sha256(pw);
+    markDirty2();
+    closeModal();
+  }
+}
+
+function unlockEditing() {
+  editing = true;
+  document.getElementById('lock-btn').classList.add('unlocked');
+  document.getElementById('admin-bar').classList.add('show');
+  document.getElementById('admin-bar-msg').textContent = 'Editing unlocked. Click any field to edit it.';
+  renderGrid();
+  renderAbout();
+  if (currentDetailId) renderDetail();
+}
+function lockEditing() {
+  editing = false;
+  document.getElementById('lock-btn').classList.remove('unlocked');
+  document.getElementById('admin-bar').classList.remove('show');
+  renderGrid();
+  renderAbout();
+  if (currentDetailId) renderDetail();
+}
+
+/* ============================================================
+   DOWNLOAD UPDATED SITE
+   ============================================================ */
+function downloadSite() {
+  const dataScript = document.getElementById('site-data');
+  const clone = document.documentElement.cloneNode(true);
+  const cloneScript = clone.querySelector('#site-data');
+  cloneScript.textContent = JSON.stringify(DATA, null, 2);
+  // Reset transient UI state in the exported copy.
+  clone.querySelectorAll('.modal-backdrop').forEach(m => m.classList.remove('show'));
+  clone.querySelectorAll('.admin-bar').forEach(m => m.classList.remove('show'));
+  const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'index.html';
+  a.click();
+  URL.revokeObjectURL(url);
+  dirty = false;
+  document.getElementById('download-btn').style.display = 'none';
+  document.getElementById('admin-bar-msg').textContent = 'Downloaded. Upload index.html to your host to publish these changes.';
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+renderGrid();
+renderAbout();
+routeFromHash();
 </script>
 </body>
 </html>
